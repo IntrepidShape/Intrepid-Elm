@@ -1,12 +1,11 @@
-module Pages.Home_ exposing (view)
+module Pages.Home_ exposing (view, holyGrail)
 
 import Css exposing (..)
 import Gen.Route exposing (Route(..))
-import Html.Styled as Styled exposing (Html, a, article, aside, div, footer, h1, header, main_, nav, p, text)
-import Html.Styled.Attributes exposing (attribute, class, css, href)
+import Html.Styled as Styled exposing (Html)
+import Html.Styled.Attributes
 import Page exposing (Page)
 import Request exposing (Request)
-import Shared
 import View exposing (View)
 
 
@@ -30,24 +29,49 @@ view =
             , """Elm is a functional programming language that compiles to JavaScript. It is a statically typed language that is designed to be easy to learn and use."""
             , """Elm is a functional programming language that compiles to JavaScript. It is a statically typed language that is designed to be easy to learn and use."""
             , """Elm is a functional programming language that compiles to JavaScript. It is a statically typed language that is designed to be easy to learn and use."""
+            , """Elm is a functional programming language that compiles to JavaScript. It is a statically typed language that is designed to be easy to learn and use."""
+            , """Elm is a functional programming language that compiles to JavaScript. It is a statically typed language that is designed to be easy to learn and use."""
+            , """Elm is a functional programming language that compiles to JavaScript. It is a statically typed language that is designed to be easy to learn and use."""
+            , """Elm is a functional programming language that compiles to JavaScript. It is a statically typed language that is designed to be easy to learn and use."""
+            , """Elm is a functional programming language that compiles to JavaScript. It is a statically typed language that is designed to be easy to learn and use."""
+            , """Elm is a functional programming language that compiles to JavaScript. It is a statically typed language that is designed to be easy to learn and use."""
+            , """Elm is a functional programming language that compiles to JavaScript. It is a statically typed language that is designed to be easy to learn and use."""
+            , """Elm is a functional programming language that compiles to JavaScript. It is a statically typed language that is designed to be easy to learn and use."""
+            , """Elm is a functional programming language that compiles to JavaScript. It is a statically typed language that is designed to be easy to learn and use."""
+            , """Elm is a functional programming language that compiles to JavaScript. It is a statically typed language that is designed to be easy to learn and use."""
+            , """Elm is a functional programming language that compiles to JavaScript. It is a statically typed language that is designed to be easy to learn and use."""
+            , """Elm is a functional programming language that compiles to JavaScript. It is a statically typed language that is designed to be easy to learn and use."""
+            , """Elm is a functional programming language that compiles to JavaScript. It is a statically typed language that is designed to be easy to learn and use."""
+            , """Elm is a functional programming language that compiles to JavaScript. It is a statically typed language that is designed to be easy to learn and use."""
+            , """Elm is a functional programming language that compiles to JavaScript. It is a statically typed language that is designed to be easy to learn and use."""
+            , """Elm is a functional programming language that compiles to JavaScript. It is a statically typed language that is designed to be easy to learn and use."""
+            , """Elm is a functional programming language that compiles to JavaScript. It is a statically typed language that is designed to be easy to learn and use."""
+            , """Elm is a functional programming language that compiles to JavaScript. It is a statically typed language that is designed to be easy to learn and use."""
+            , """Elm is a functional programming language that compiles to JavaScript. It is a statically typed language that is designed to be easy to learn and use."""
+            , """Elm is a functional programming language that compiles to JavaScript. It is a statically typed language that is designed to be easy to learn and use."""
+            , """Elm is a functional programming language that compiles to JavaScript. It is a statically typed language that is designed to be easy to learn and use."""
+            , """Elm is a functional programming language that compiles to JavaScript. It is a statically typed language that is designed to be easy to learn and use."""
+            , """Elm is a functional programming language that compiles to JavaScript. It is a statically typed language that is designed to be easy to learn and use."""
+            , """Elm is a functional programming language that compiles to JavaScript. It is a statically typed language that is designed to be easy to learn and use."""
             ]
     in
     { title = "Intrepid Shape"
-    , body = [ holyGrail articleContent [ ("Home", Gen.Route.Home_ )] ]
+    , body = [ holyGrail articleContent [ ("Home", Gen.Route.Home_ ), ("OtherPage", Gen.Route.OtherPage)] ]
     }
 
-holyGrail : List String -> List (String, Route) -> Html msg
+holyGrail : List String -> List ( String, Route ) -> Html msg
+
 holyGrail articleContent navBarContent =
     Styled.div
         [ Html.Styled.Attributes.css
-            [ Css.displayFlex
-            , Css.flexDirection Css.column
+            [ Css.position Css.relative
             , Css.height <| Css.pct 100
             ]
         ]
         [ Styled.header
             [ Html.Styled.Attributes.css
-                [ Css.displayFlex
+                [ Css.position Css.relative
+                , Css.displayFlex
                 , Css.flexDirection Css.row
                 , Css.alignItems Css.center
                 , Css.justifyContent Css.center
@@ -58,53 +82,55 @@ holyGrail articleContent navBarContent =
         -- this should be centre aligned
         , Styled.main_
             [ Html.Styled.Attributes.css
-                [ Css.flexGrow <| Css.int 1
+                [ Css.position Css.relative
                 , Css.displayFlex
                 , Css.flexDirection Css.row
                 ]
             ]
             [ Styled.div
                 [ Html.Styled.Attributes.css
-                    [ Css.width <| Css.pct 20 
+                    [ Css.position Css.sticky
+                    , Css.top <| Css.pct 0
+                    , Css.zIndex <| Css.int 1
+                    , Css.width <| Css.pct 7
+                    , Css.paddingLeft <| Css.pct 3
+                    , Css.textAlign Css.marginLeft
                     , Css.displayFlex
-                    , Css.flexDirection Css.column
-                    , Css.alignItems Css.center
+                    , Css.flexWrap Css.wrap
                     ]
                 ]
                 [ Styled.nav
                     [ Html.Styled.Attributes.css
-                        [ Css.displayFlex
-                        , Css.flexDirection Css.column
-                        , Css.alignItems Css.center
+                        [ Css.flexWrap Css.wrap
+                        , Css.position Css.sticky
+                        , Css.top <| Css.pct 0
+                        , Css.zIndex <| Css.int 1
                         ]
                     ]
                     [ mapNavBarContent navBarContent ]
                 ]
             , Styled.article
                 [ Html.Styled.Attributes.css
-                    [ Css.flexGrow <| Css.int 1
-                    , Css.displayFlex
-                    , Css.flexDirection Css.column
+                    [ Css.width <| Css.pct 80 
+                    , Css.flexWrap Css.wrap
                     , fontSize (px 20)
                     ]
                 ]
                 [ mapContent articleContent ]
             , Styled.aside
                 [ Html.Styled.Attributes.css
-                    [ Css.width <| Css.pct 20 
-                    , Css.displayFlex
-                    , Css.flexDirection Css.column
-                    , Css.alignItems Css.center
+                    [ Css.width <| Css.pct 7
+                    , Css.paddingLeft <| Css.pct 3
+                    , Css.flexWrap Css.wrap
                     ]
 
                 ]
                 [ Styled.p [] [ Styled.text "Asid from all that, there is some text over here too!" ] ]
             ]
         , Styled.footer
-            -- Small text, centered, on the botto mof the page
             [ Html.Styled.Attributes.css
                 [ Css.displayFlex
-                , Css.flexDirection Css.column
+                , Css.flexWrap Css.wrap
                 , Css.alignItems Css.center
                 , Css.justifyContent Css.center
                 , Css.fontSize <| Css.px 10
@@ -130,18 +156,22 @@ mapNavBarContent content =
             List.map (\x -> x) content
     in
     Styled.div
-        []
+        [ Html.Styled.Attributes.css
+            [ Css.position Css.sticky
+            , Css.top <| Css.px 0
+            , Css.zIndex <| Css.int 1
+            , Css.displayFlex
+            , Css.flexDirection Css.column
+            , Css.alignItems Css.center
+            , Css.justifyContent Css.center
+            ]
+        ]
         (List.map (\( label, route ) -> viewLink label route) contentList)
 
 
 viewLink : String -> Route -> Html msg
 viewLink label route =
     Styled.a
-        [ Html.Styled.Attributes.css
-            [ Css.displayFlex
-            , Css.flexDirection Css.column
-            , Css.alignItems Css.center
-            ]
-        , Html.Styled.Attributes.href (Gen.Route.toHref route)
+        [ Html.Styled.Attributes.href (Gen.Route.toHref route)
         ]
         [ Styled.p [] [ Styled.text label ] ]
