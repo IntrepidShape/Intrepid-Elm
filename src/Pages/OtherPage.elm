@@ -12,7 +12,6 @@ view : View msg
 view =
     let
         articleContent =
-            -- impress me with your content generating skill, add iframes and awesome content, you can do better!
             [ div
                 [ css
                     [ alignItems center
@@ -40,5 +39,5 @@ view =
             ]
     in
     { title = "Intrepid Shape"
-    , body = [ holyGrail articleContent [ ( "Home", Gen.Route.Home_ ), ( "OtherPage", Gen.Route.OtherPage ) ] ]
+    , body = [ holyGrail articleContent [ ( "Home", Gen.Route.Home_ ), ( "OtherPage", Gen.Route.OtherPage ) , ( "Geometry" , Gen.Route.Geometry ) ] ]
     }
