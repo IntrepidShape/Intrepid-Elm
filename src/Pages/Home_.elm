@@ -1,9 +1,10 @@
-module Pages.Home_ exposing (view, holyGrail)
+module Pages.Home_ exposing (holyGrail, view)
 
 import Css exposing (..)
+import Css.Transitions exposing (background)
 import Gen.Route exposing (Route(..))
-import Html.Styled as Styled exposing (Html)
-import Html.Styled.Attributes
+import Html.Styled as Styled exposing (Html, iframe)
+import Html.Styled.Attributes exposing (css, href, src)
 import Page exposing (Page)
 import Request exposing (Request)
 import View exposing (View)
@@ -13,59 +14,60 @@ view : View msg
 view =
     let
         articleContent =
-            [ """Are you looking to learn and grow as a software developer? Intrepid Shape is the perfect place to start. Our platform provides an interactive learning environment with an intuitive user interface, comprehensive tutorials, and more. Through our tutorials, developers can learn the fundamentals of Elm and create their own applications."""
-            , """On our landing page, you'll find all the latest information about the Intrepid Shape platform. We offer an overview of the Elm tutorials that will soon be available, with detailed descriptions of the topics covered and the learning objectives. Additionally, you can learn about the other resources available on the Intrepid Shape platform, such as support and community forums, resources for product and release updates, and more."""
-            , """If you're ready to get started, you can register for a free account. Once you've registered, you'll be able to access the full Intrepid Shape platform, including the Elm tutorials. You'll also be able to access the other resources available on the platform, such as support and community forums, resources for product and release updates, and more."""
-            , """Why Elm?"""
-            , """Elm is a functional programming language that compiles to JavaScript. It is a statically typed language that is designed to be easy to learn and use."""
-            , """Elm is a functional programming language that compiles to JavaScript. It is a statically typed language that is designed to be easy to learn and use."""
-            , """Elm is a functional programming language that compiles to JavaScript. It is a statically typed language that is designed to be easy to learn and use."""
-            , """Elm is a functional programming language that compiles to JavaScript. It is a statically typed language that is designed to be easy to learn and use."""
-            , """Elm is a functional programming language that compiles to JavaScript. It is a statically typed language that is designed to be easy to learn and use."""
-            , """Elm is a functional programming language that compiles to JavaScript. It is a statically typed language that is designed to be easy to learn and use."""
-            , """Elm is a functional programming language that compiles to JavaScript. It is a statically typed language that is designed to be easy to learn and use."""
-            , """Elm is a functional programming language that compiles to JavaScript. It is a statically typed language that is designed to be easy to learn and use."""
-            , """Elm is a functional programming language that compiles to JavaScript. It is a statically typed language that is designed to be easy to learn and use."""
-            , """Elm is a functional programming language that compiles to JavaScript. It is a statically typed language that is designed to be easy to learn and use."""
-            , """Elm is a functional programming language that compiles to JavaScript. It is a statically typed language that is designed to be easy to learn and use."""
-            , """Elm is a functional programming language that compiles to JavaScript. It is a statically typed language that is designed to be easy to learn and use."""
-            , """Elm is a functional programming language that compiles to JavaScript. It is a statically typed language that is designed to be easy to learn and use."""
-            , """Elm is a functional programming language that compiles to JavaScript. It is a statically typed language that is designed to be easy to learn and use."""
-            , """Elm is a functional programming language that compiles to JavaScript. It is a statically typed language that is designed to be easy to learn and use."""
-            , """Elm is a functional programming language that compiles to JavaScript. It is a statically typed language that is designed to be easy to learn and use."""
-            , """Elm is a functional programming language that compiles to JavaScript. It is a statically typed language that is designed to be easy to learn and use."""
-            , """Elm is a functional programming language that compiles to JavaScript. It is a statically typed language that is designed to be easy to learn and use."""
-            , """Elm is a functional programming language that compiles to JavaScript. It is a statically typed language that is designed to be easy to learn and use."""
-            , """Elm is a functional programming language that compiles to JavaScript. It is a statically typed language that is designed to be easy to learn and use."""
-            , """Elm is a functional programming language that compiles to JavaScript. It is a statically typed language that is designed to be easy to learn and use."""
-            , """Elm is a functional programming language that compiles to JavaScript. It is a statically typed language that is designed to be easy to learn and use."""
-            , """Elm is a functional programming language that compiles to JavaScript. It is a statically typed language that is designed to be easy to learn and use."""
-            , """Elm is a functional programming language that compiles to JavaScript. It is a statically typed language that is designed to be easy to learn and use."""
-            , """Elm is a functional programming language that compiles to JavaScript. It is a statically typed language that is designed to be easy to learn and use."""
-            , """Elm is a functional programming language that compiles to JavaScript. It is a statically typed language that is designed to be easy to learn and use."""
-            , """Elm is a functional programming language that compiles to JavaScript. It is a statically typed language that is designed to be easy to learn and use."""
-            , """Elm is a functional programming language that compiles to JavaScript. It is a statically typed language that is designed to be easy to learn and use."""
-            , """Elm is a functional programming language that compiles to JavaScript. It is a statically typed language that is designed to be easy to learn and use."""
-            , """Elm is a functional programming language that compiles to JavaScript. It is a statically typed language that is designed to be easy to learn and use."""
-            , """Elm is a functional programming language that compiles to JavaScript. It is a statically typed language that is designed to be easy to learn and use."""
-            , """Elm is a functional programming language that compiles to JavaScript. It is a statically typed language that is designed to be easy to learn and use."""
-            , """Elm is a functional programming language that compiles to JavaScript. It is a statically typed language that is designed to be easy to learn and use."""
-            , """Elm is a functional programming language that compiles to JavaScript. It is a statically typed language that is designed to be easy to learn and use."""
-            , """Elm is a functional programming language that compiles to JavaScript. It is a statically typed language that is designed to be easy to learn and use."""
-            , """Elm is a functional programming language that compiles to JavaScript. It is a statically typed language that is designed to be easy to learn and use."""
-            ]
+            [ iframe
+                [ Html.Styled.Attributes.style "border-radius" "12px"
+                , Html.Styled.Attributes.src "https://open.spotify.com/embed/track/4JZcJ0MKqH3y3u3gev3svd?utm_source=generator&theme=0"
+                , Html.Styled.Attributes.width 800
+                , Html.Styled.Attributes.height 152
+                , Html.Styled.Attributes.attribute "frameborder" "0"
+                , Html.Styled.Attributes.attribute "allowfullscreen" ""
+                , Html.Styled.Attributes.attribute "allow" "autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
+                , Html.Styled.Attributes.attribute "loading" "lazy"
+                , Html.Styled.Attributes.css
+                    [ Css.marginBottom (px 20)
+                    , Css.marginTop (px 20)
+                    , Css.marginLeft Css.auto
+                    , Css.marginRight Css.auto
+                    , Css.display Css.block
+                    ]
+                ]
+                []
+            , Styled.p [] [ Styled.text """I'm baby woke mlkshk wolf bitters live-edge blue bottle, hammock freegan copper mug whatever cold-pressed""" ]
+            , Styled.p [] [ Styled.text """I'm baby woke mlkshk wolf bitters live-edge blue bottle, hammock freegan copper mug whatever cold-pressed""" ]
+            , Styled.p [] [ Styled.text """I'm baby woke mlkshk wolf bitters live-edge blue bottle, hammock freegan copper mug whatever cold-pressed""" ]
+            , Styled.p [] [ Styled.text """I'm baby woke mlkshk wolf bitters live-edge blue bottle, hammock freegan copper mug whatever cold-pressed""" ]
+            , Styled.p [] [ Styled.text """I'm baby woke mlkshk wolf bitters live-edge blue bottle, hammock freegan copper mug whatever cold-pressed""" ]
+            , Styled.p [] [ Styled.text """I'm baby woke mlkshk wolf bitters live-edge blue bottle, hammock freegan copper mug whatever cold-pressed""" ]
+            , Styled.p [] [ Styled.text """I'm baby woke mlkshk wolf bitters live-edge blue bottle, hammock freegan copper mug whatever cold-pressed""" ]
+            , Styled.p [] [ Styled.text """I'm baby woke mlkshk wolf bitters live-edge blue bottle, hammock freegan copper mug whatever cold-pressed""" ]
+            , Styled.p [] [ Styled.text """I'm baby woke mlkshk wolf bitters live-edge blue bottle, hammock freegan copper mug whatever cold-pressed""" ]
+            , Styled.p [] [ Styled.audio [ src "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" ] [] ]
+            , Styled.p [] [ Styled.text """I'm baby woke mlkshk wolf bitters live-edge blue bottle, hammock freegan copper mug whatever cold-pressed""" ]
+            , Styled.p [] [ Styled.text """I'm baby woke mlkshk wolf bitters live-edge blue bottle, hammock freegan copper mug whatever cold-pressed""" ]
+            , Styled.p [] [ Styled.text """I'm baby woke mlkshk wolf bitters live-edge blue bottle, hammock freegan copper mug whatever cold-pressed""" ]
+            , Styled.p [] [ Styled.text """I'm baby woke mlkshk wolf bitters live-edge blue bottle, hammock freegan copper mug whatever cold-pressed""" ]
+            , Styled.p [] [ Styled.text """I'm baby woke mlkshk wolf bitters live-edge blue bottle, hammock freegan copper mug whatever cold-pressed""" ]
+            , Styled.p [] [ Styled.text """I'm baby woke mlkshk wolf bitters live-edge blue bottle, hammock freegan copper mug whatever cold-pressed""" ]
+            , Styled.p [] [ Styled.text """I'm baby woke mlkshk wolf bitters live-edge blue bottle, hammock freegan copper mug whatever cold-pressed""" ]
+            , Styled.p [] [ Styled.text """I'm baby woke mlkshk wolf bitters live-edge blue bottle, hammock freegan copper mug whatever cold-pressed""" ]
+            , Styled.p [] [ Styled.text """I'm baby woke mlkshk wolf bitters live-edge blue bottle, hammock freegan copper mug whatever cold-pressed""" ]
+            , Styled.p [] [ Styled.audio [ src "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" ] [] ]
+            , Styled.p [ Html.Styled.Attributes.css [ Css.textDecoration Css.underline ] ] [ Styled.a [ href "https://www.youtube.com/watch?v=QH2-TGUlwu4" ] [ Styled.text "This is a link" ] ] ]
     in
     { title = "Intrepid Shape"
-    , body = [ holyGrail articleContent [ ("Home", Gen.Route.Home_ ), ("OtherPage", Gen.Route.OtherPage)] ]
+    , body = [ holyGrail articleContent [ ( "Home", Gen.Route.Home_ ), ( "OtherPage", Gen.Route.OtherPage ) ] ]
     }
 
-holyGrail : List String -> List ( String, Route ) -> Html msg
-
+-- The whole article area should alays be at least 100% of the viewport height
+holyGrail : List (Styled.Html msg) -> List ( String, Route ) -> Html msg
 holyGrail articleContent navBarContent =
     Styled.div
         [ Html.Styled.Attributes.css
             [ Css.position Css.relative
-            , Css.height <| Css.pct 100
+            , Css.top <| Css.pct 0
+            , Css.zIndex <| Css.int 1
+            , Css.width (pct 100)
+            , Css.height (pct 100)
             ]
         ]
         [ Styled.header
@@ -75,21 +77,31 @@ holyGrail articleContent navBarContent =
                 , Css.flexDirection Css.row
                 , Css.alignItems Css.center
                 , Css.justifyContent Css.center
+                , backgroundColor intrepidColourPrimary2
+                , Css.border3 (px 5) Css.solid intrepidColourPrimary3
                 ]
             ]
-            [ Styled.h1 [] [ Styled.text "Welcome to Intrepid Shape" ] ]
-
-        -- this should be centre aligned
+            [ Styled.h1
+                [ Html.Styled.Attributes.css
+                    [ Css.fontSize (px 34)
+                    , Css.alignItems Css.center
+                    , Css.justifyContent Css.center
+                    ]
+                ]
+                [ Styled.text "Welcome to Intrepid Shape" ]
+            ]
         , Styled.main_
             [ Html.Styled.Attributes.css
                 [ Css.position Css.relative
                 , Css.displayFlex
                 , Css.flexDirection Css.row
+                , Css.backgroundColor intrepidColourSecondary2_0
+                , Css.justifyContent Css.center
                 ]
             ]
             [ Styled.div
                 [ Html.Styled.Attributes.css
-                    [ Css.position Css.sticky
+                    [ Css.position Css.relative
                     , Css.top <| Css.pct 0
                     , Css.zIndex <| Css.int 1
                     , Css.width <| Css.pct 7
@@ -97,6 +109,9 @@ holyGrail articleContent navBarContent =
                     , Css.textAlign Css.marginLeft
                     , Css.displayFlex
                     , Css.flexWrap Css.wrap
+                    , Css.backgroundColor intrepidColourPrimary2
+                    , Css.border3 (px 5) Css.solid intrepidColourPrimary3
+                    , Css.borderTop (px 0)
                     ]
                 ]
                 [ Styled.nav
@@ -109,21 +124,23 @@ holyGrail articleContent navBarContent =
                     ]
                     [ mapNavBarContent navBarContent ]
                 ]
-            , Styled.article
-                [ Html.Styled.Attributes.css
-                    [ Css.width <| Css.pct 80 
-                    , Css.flexWrap Css.wrap
-                    , fontSize (px 20)
-                    ]
-                ]
-                [ mapContent articleContent ]
+            , mapArticleContent articleContent
             , Styled.aside
                 [ Html.Styled.Attributes.css
-                    [ Css.width <| Css.pct 7
-                    , Css.paddingLeft <| Css.pct 3
-                    , Css.flexWrap Css.wrap
+                    [ Css.flexWrap Css.wrap
+                    , Css.position Css.sticky
+                    , Css.top <| Css.px 0
+                    , Css.zIndex <| Css.int 1
+                    , Css.displayFlex
+                    , Css.flexDirection Css.column
+                    , Css.alignItems Css.center
+                    , Css.width <| Css.pct 7
+                    , Css.paddingLeft <| Css.pct 1.5
+                    , Css.paddingRight <| Css.pct 1.5
+                    , Css.backgroundColor intrepidColourPrimary2
+                    , Css.border3 (px 5) Css.solid intrepidColourPrimary3
+                    , Css.borderTop (px 0)
                     ]
-
                 ]
                 [ Styled.p [] [ Styled.text "Asid from all that, there is some text over here too!" ] ]
             ]
@@ -134,21 +151,16 @@ holyGrail articleContent navBarContent =
                 , Css.alignItems Css.center
                 , Css.justifyContent Css.center
                 , Css.fontSize <| Css.px 10
+                , backgroundColor intrepidColourSecondary2_1
                 ]
             ]
             [ Styled.p [] [ Styled.text "© 2023 Intrepid Shape" ] ]
         ]
-mapContent : List String -> Html msg
-mapContent content =
-    let
-        contentList =
-            List.map (\x -> x) content
-    in
-    Styled.div
-        []
-        (List.map (\x -> Styled.p [] [ Styled.text x ]) contentList)
 
--- Make sure it is formated and uses routes correctly instead of strings
+
+
+
+
 mapNavBarContent : List ( String, Route ) -> Html msg
 mapNavBarContent content =
     let
@@ -175,3 +187,104 @@ viewLink label route =
         [ Html.Styled.Attributes.href (Gen.Route.toHref route)
         ]
         [ Styled.p [] [ Styled.text label ] ]
+
+-- The whole article area should alays be at least 100% of the viewport height
+mapArticleContent : List (Html msg) -> Html msg
+mapArticleContent articleContent =
+    Styled.article
+        [ Html.Styled.Attributes.css
+            [ Css.width <| Css.pct 80
+            , Css.displayFlex
+            , Css.flexWrap Css.wrap
+            , fontSize (px 20)
+            , Css.backgroundColor intrepidColourPrimary1
+            , Css.padding <| Css.px 20
+            ]
+        ]
+        articleContent
+
+
+mapContent : List (Html msg) -> Html msg
+mapContent content =
+    let
+        contentList =
+            List.map (\x -> x) content
+    in
+    Styled.div
+        []
+        contentList
+
+
+intrepidColourPrimary0 : Color
+intrepidColourPrimary0 =
+    hex "#C2F366"
+
+
+intrepidColourPrimary1 : Color
+intrepidColourPrimary1 =
+    hex "#E4FCB8"
+
+
+intrepidColourPrimary2 : Color
+intrepidColourPrimary2 =
+    hex "#D2F88B"
+
+
+intrepidColourPrimary3 : Color
+intrepidColourPrimary3 =
+    hex "#B4EE47"
+
+
+intrepidColourPrimary4 : Color
+intrepidColourPrimary4 =
+    hex "#9AD922"
+
+
+intrepidColourSecondary1_0 : Color
+intrepidColourSecondary1_0 =
+    hex "#FF6E6B"
+
+
+intrepidColourSecondary1_1 : Color
+intrepidColourSecondary1_1 =
+    hex "#FFBCBA"
+
+
+intrepidColourSecondary1_2 : Color
+intrepidColourSecondary1_2 =
+    hex "#FF918F"
+
+
+intrepidColourSecondary1_3 : Color
+intrepidColourSecondary1_3 =
+    hex "#FF514C"
+
+
+intrepidColourSecondary1_4 : Color
+intrepidColourSecondary1_4 =
+    hex "#E92A25"
+
+
+intrepidColourSecondary2_0 : Color
+intrepidColourSecondary2_0 =
+    hex "#A158C6"
+
+
+intrepidColourSecondary2_1 : Color
+intrepidColourSecondary2_1 =
+    hex "#DBB2F0"
+
+
+intrepidColourSecondary2_2 : Color
+intrepidColourSecondary2_2 =
+    hex "#BD80DC"
+
+
+intrepidColourSecondary2_3 : Color
+intrepidColourSecondary2_3 =
+    hex "#863AAC"
+
+
+intrepidColourSecondary2_4 : Color
+intrepidColourSecondary2_4 =
+    hex "#711F9B"
