@@ -52,13 +52,18 @@ view =
             , Styled.p [] [ Styled.text """I'm baby woke mlkshk wolf bitters live-edge blue bottle, hammock freegan copper mug whatever cold-pressed""" ]
             , Styled.p [] [ Styled.text """I'm baby woke mlkshk wolf bitters live-edge blue bottle, hammock freegan copper mug whatever cold-pressed""" ]
             , Styled.p [] [ Styled.audio [ src "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" ] [] ]
-            , Styled.p [ Html.Styled.Attributes.css [ Css.textDecoration Css.underline ] ] [ Styled.a [ href "https://www.youtube.com/watch?v=QH2-TGUlwu4" ] [ Styled.text "This is a link" ] ] ]
+            , Styled.p [ Html.Styled.Attributes.css [ Css.textDecoration Css.underline ] ] [ Styled.a [ href "https://www.youtube.com/watch?v=QH2-TGUlwu4" ] [ Styled.text "This is a link" ] ]
+            ]
     in
     { title = "Intrepid Shape"
     , body = [ holyGrail articleContent [ ( "Home", Gen.Route.Home_ ), ( "OtherPage", Gen.Route.OtherPage ) ] ]
     }
 
+
+
 -- The whole article area should alays be at least 100% of the viewport height
+
+
 holyGrail : List (Styled.Html msg) -> List ( String, Route ) -> Html msg
 holyGrail articleContent navBarContent =
     Styled.div
@@ -70,7 +75,14 @@ holyGrail articleContent navBarContent =
             , Css.height (pct 100)
             ]
         ]
-        [ Styled.header
+        [ holyGrailHeader
+        , holyGrailMain_ articleContent navBarContent
+        , holyGrailFooter 
+        ]
+        
+holyGrailHeader : Html msg
+holyGrailHeader =
+    Styled.header
             [ Html.Styled.Attributes.css
                 [ Css.position Css.relative
                 , Css.displayFlex
@@ -90,7 +102,10 @@ holyGrail articleContent navBarContent =
                 ]
                 [ Styled.text "Welcome to Intrepid Shape" ]
             ]
-        , Styled.main_
+
+holyGrailMain_ : List (Styled.Html msg) -> List ( String, Route ) -> Html msg
+holyGrailMain_ articleContent navBarContent =
+    Styled.main_
             [ Html.Styled.Attributes.css
                 [ Css.position Css.relative
                 , Css.displayFlex
@@ -144,23 +159,7 @@ holyGrail articleContent navBarContent =
                 ]
                 [ Styled.p [] [ Styled.text "Asid from all that, there is some text over here too!" ] ]
             ]
-        , Styled.footer
-            [ Html.Styled.Attributes.css
-                [ Css.displayFlex
-                , Css.flexWrap Css.wrap
-                , Css.alignItems Css.center
-                , Css.justifyContent Css.center
-                , Css.fontSize <| Css.px 10
-                , backgroundColor intrepidColourSecondary2_1
-                ]
-            ]
-            [ Styled.p [] [ Styled.text "© 2023 Intrepid Shape" ] ]
-        ]
-
-
-
-
-
+            
 mapNavBarContent : List ( String, Route ) -> Html msg
 mapNavBarContent content =
     let
@@ -188,7 +187,11 @@ viewLink label route =
         ]
         [ Styled.p [] [ Styled.text label ] ]
 
+
+
 -- The whole article area should alays be at least 100% of the viewport height
+
+
 mapArticleContent : List (Html msg) -> Html msg
 mapArticleContent articleContent =
     Styled.article
@@ -203,16 +206,20 @@ mapArticleContent articleContent =
         ]
         articleContent
 
-
-mapContent : List (Html msg) -> Html msg
-mapContent content =
-    let
-        contentList =
-            List.map (\x -> x) content
-    in
-    Styled.div
-        []
-        contentList
+holyGrailFooter : Html msg
+holyGrailFooter =
+    Styled.footer
+            [ Html.Styled.Attributes.css
+                [ Css.displayFlex
+                , Css.flexWrap Css.wrap
+                , Css.alignItems Css.center
+                , Css.justifyContent Css.center
+                , Css.fontSize <| Css.px 10
+                , backgroundColor intrepidColourSecondary2_1
+                , border3 (px 5) Css.solid intrepidColourSecondary2_2
+                ]
+            ]
+            [ Styled.p [] [ Styled.text "© 2023 Intrepid Shape" ] ]
 
 
 intrepidColourPrimary0 : Color
