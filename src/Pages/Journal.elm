@@ -11,7 +11,6 @@ import Request exposing (Request)
 import Shared exposing (..)
 import Task
 import View exposing (View)
-import Gen.Msg exposing (Msg)
 
 
 -- Journal
@@ -368,5 +367,3 @@ saveMorning : Morning -> Cmd Msg
 saveMorning morning =
     Task.perform (\_ -> MorningSubmitted morning) (Task.succeed morning)
 
-
---would this work?

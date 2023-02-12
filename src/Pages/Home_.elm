@@ -115,7 +115,7 @@ holyGrailHeader =
 -- Simple title in the header that is all
 
 
-holyGrailMain_ : List (Html.Html msg) -> Html msg
+holyGrailMain_ : List (Html.Html msg)-> Html msg
 holyGrailMain_ articleContent =
     Html.main_
         [ css
