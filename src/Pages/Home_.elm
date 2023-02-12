@@ -1,10 +1,12 @@
 module Pages.Home_ exposing (holyGrail, view)
 
 import Css exposing (..)
+import Css.Global
 import Css.Transitions exposing (background)
 import Gen.Route exposing (Route(..))
-import Html.Styled as Styled exposing (Html, iframe)
-import Html.Styled.Attributes exposing (css, href, src)
+import Html.Styled as Html exposing (Html, iframe)
+import Html.Styled.Attributes as Html exposing (css, href, src)
+import Html.Styled.Events as Html exposing (onClick)
 import Page exposing (Page)
 import Request exposing (Request)
 import View exposing (View)
@@ -14,49 +16,31 @@ view : View msg
 view =
     let
         articleContent =
-            [ iframe
-                [ Html.Styled.Attributes.style "border-radius" "12px"
-                , Html.Styled.Attributes.src "https://open.spotify.com/embed/track/4JZcJ0MKqH3y3u3gev3svd?utm_source=generator&theme=0"
-                , Html.Styled.Attributes.width 800
-                , Html.Styled.Attributes.height 152
-                , Html.Styled.Attributes.attribute "frameborder" "0"
-                , Html.Styled.Attributes.attribute "allowfullscreen" ""
-                , Html.Styled.Attributes.attribute "allow" "autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-                , Html.Styled.Attributes.attribute "loading" "lazy"
-                , Html.Styled.Attributes.css
-                    [ Css.marginBottom (px 20)
-                    , Css.marginTop (px 20)
-                    , Css.marginLeft Css.auto
-                    , Css.marginRight Css.auto
-                    , Css.display Css.block
-                    ]
-                ]
-                []
-            , Styled.p [] [ Styled.text """I'm baby woke mlkshk wolf bitters live-edge blue bottle, hammock freegan copper mug whatever cold-pressed""" ]
-            , Styled.p [] [ Styled.text """I'm baby woke mlkshk wolf bitters live-edge blue bottle, hammock freegan copper mug whatever cold-pressed""" ]
-            , Styled.p [] [ Styled.text """I'm baby woke mlkshk wolf bitters live-edge blue bottle, hammock freegan copper mug whatever cold-pressed""" ]
-            , Styled.p [] [ Styled.text """I'm baby woke mlkshk wolf bitters live-edge blue bottle, hammock freegan copper mug whatever cold-pressed""" ]
-            , Styled.p [] [ Styled.text """I'm baby woke mlkshk wolf bitters live-edge blue bottle, hammock freegan copper mug whatever cold-pressed""" ]
-            , Styled.p [] [ Styled.text """I'm baby woke mlkshk wolf bitters live-edge blue bottle, hammock freegan copper mug whatever cold-pressed""" ]
-            , Styled.p [] [ Styled.text """I'm baby woke mlkshk wolf bitters live-edge blue bottle, hammock freegan copper mug whatever cold-pressed""" ]
-            , Styled.p [] [ Styled.text """I'm baby woke mlkshk wolf bitters live-edge blue bottle, hammock freegan copper mug whatever cold-pressed""" ]
-            , Styled.p [] [ Styled.text """I'm baby woke mlkshk wolf bitters live-edge blue bottle, hammock freegan copper mug whatever cold-pressed""" ]
-            , Styled.p [] [ Styled.audio [ src "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" ] [] ]
-            , Styled.p [] [ Styled.text """I'm baby woke mlkshk wolf bitters live-edge blue bottle, hammock freegan copper mug whatever cold-pressed""" ]
-            , Styled.p [] [ Styled.text """I'm baby woke mlkshk wolf bitters live-edge blue bottle, hammock freegan copper mug whatever cold-pressed""" ]
-            , Styled.p [] [ Styled.text """I'm baby woke mlkshk wolf bitters live-edge blue bottle, hammock freegan copper mug whatever cold-pressed""" ]
-            , Styled.p [] [ Styled.text """I'm baby woke mlkshk wolf bitters live-edge blue bottle, hammock freegan copper mug whatever cold-pressed""" ]
-            , Styled.p [] [ Styled.text """I'm baby woke mlkshk wolf bitters live-edge blue bottle, hammock freegan copper mug whatever cold-pressed""" ]
-            , Styled.p [] [ Styled.text """I'm baby woke mlkshk wolf bitters live-edge blue bottle, hammock freegan copper mug whatever cold-pressed""" ]
-            , Styled.p [] [ Styled.text """I'm baby woke mlkshk wolf bitters live-edge blue bottle, hammock freegan copper mug whatever cold-pressed""" ]
-            , Styled.p [] [ Styled.text """I'm baby woke mlkshk wolf bitters live-edge blue bottle, hammock freegan copper mug whatever cold-pressed""" ]
-            , Styled.p [] [ Styled.text """I'm baby woke mlkshk wolf bitters live-edge blue bottle, hammock freegan copper mug whatever cold-pressed""" ]
-            , Styled.p [] [ Styled.audio [ src "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" ] [] ]
-            , Styled.p [ Html.Styled.Attributes.css [ Css.textDecoration Css.underline ] ] [ Styled.a [ href "https://www.youtube.com/watch?v=QH2-TGUlwu4" ] [ Styled.text "This is a link" ] ]
+            [ Html.p [] [ Html.text "Life is a journey, not a destination. Embrace the journey of self-discovery and find success through learning and self-improvement." ]
+            , Html.p [] [ Html.text "Mathematics is the language of the universe. Learn to speak it fluently and unlock the potential of your mind." ]
+            , Html.p [] [ Html.text "Eudaimonia is the path to a virtuous and fulfilled life. Harness the power of Stoicism to become the best version of yourself." ]
+            , Html.p [] [ Html.text "Programming is the key to unlocking new possibilities. Invest in yourself and become a master of the digital age." ]
+            , Html.p [] [ Html.text "Success is a journey, not a destination. Find your true purpose and use it to reach your highest potential." ]
+            , Html.p [] [ Html.text "Self-discipline is the foundation of success. Develop the habits that will lead you to a better life." ]
+            , Html.p [] [ Html.text "The mind is a powerful tool. Learn to use it to your advantage and unlock your true potential." ]
+            , Html.p [] [ Html.text "Life is a journey, not a destination. Embrace the journey of self-discovery and find success through learning and self-improvement." ]
+            , Html.p [] [ Html.text "Mathematics is the language of the universe. Learn to speak it fluently and unlock the potential of your mind." ]
+            , Html.p [] [ Html.text "Eudaimonia is the path to a virtuous and fulfilled life. Harness the power of Stoicism to become the best version of yourself." ]
+            , Html.p [] [ Html.text "Programming is the key to unlocking new possibilities. Invest in yourself and become a master of the digital age." ]
+            , Html.p [] [ Html.text "Success is a journey, not a destination. Find your true purpose and use it to reach your highest potential." ]
+            , Html.p [] [ Html.text "Self-discipline is the foundation of success. Develop the habits that will lead you to a better life." ]
+            , Html.p [] [ Html.text "The mind is a powerful tool. Learn to use it to your advantage and unlock your true potential." ]
+            , Html.p [] [ Html.text "Life is a journey, not a destination. Embrace the journey of self-discovery and find success through learning and self-improvement." ]
+            , Html.p [] [ Html.text "Mathematics is the language of the universe. Learn to speak it fluently and unlock the potential of your mind." ]
+            , Html.p [] [ Html.text "Eudaimonia is the path to a virtuous and fulfilled life. Harness the power of Stoicism to become the best version of yourself." ]
+            , Html.p [] [ Html.text "Programming is the key to unlocking new possibilities. Invest in yourself and become a master of the digital age." ]
+            , Html.p [] [ Html.text "Success is a journey, not a destination. Find your true purpose and use it to reach your highest potential." ]
+            , Html.p [] [ Html.text "Self-discipline is the foundation of success. Develop the habits that will lead you to a better life." ]
+            , Html.p [] [ Html.text "The mind is a powerful tool. Learn to use it to your advantage and unlock your true potential." ]
             ]
     in
     { title = "Intrepid Shape"
-    , body = [ holyGrail articleContent [ ( "Home", Gen.Route.Home_ ), ( "OtherPage", Gen.Route.OtherPage ) ] ]
+    , body = [ holyGrail articleContent ]
     }
 
 
@@ -64,10 +48,10 @@ view =
 -- The whole article area should alays be at least 100% of the viewport height
 
 
-holyGrail : List (Styled.Html msg) -> List ( String, Route ) -> Html msg
-holyGrail articleContent navBarContent =
-    Styled.div
-        [ Html.Styled.Attributes.css
+holyGrail : List (Html.Html msg) -> Html msg
+holyGrail articleContent =
+    Html.div
+        [ css
             [ Css.position Css.relative
             , Css.top <| Css.pct 0
             , Css.zIndex <| Css.int 1
@@ -76,116 +60,193 @@ holyGrail articleContent navBarContent =
             ]
         ]
         [ holyGrailHeader
-        , holyGrailMain_ articleContent navBarContent
-        , holyGrailFooter 
+        , holyGrailMain_ articleContent
+        , holyGrailFooter
         ]
-        
+
+
 holyGrailHeader : Html msg
 holyGrailHeader =
-    Styled.header
-            [ Html.Styled.Attributes.css
+    Html.header
+        -- display a webp image as the background image
+        [ css
+            [ Css.position Css.relative
+            , Css.top <| Css.pct 0
+            , Css.zIndex <| Css.int 1
+            , Css.width (pct 100)
+            , Css.height (px 100)
+            , Css.border3 (px 5) Css.solid intrepidColourPrimary3
+            , Css.backgroundColor intrepidColourPrimary1
+            , Css.backgroundImage (url "public/Images/SVG/Infiniteseedoflife.webp")
+            , Css.backgroundRepeat Css.repeat
+            , Css.backgroundSize Css.cover
+            , Css.backgroundPosition Css.center -- the background image is not displaying??
+            , Css.backgroundBlendMode Css.multiply
+            ]
+        ]
+        [ Html.div
+            [ css
                 [ Css.position Css.relative
+                , Css.top <| Css.pct 0
+                , Css.zIndex <| Css.int 1
+                , Css.width (pct 100)
+                , Css.height (px 100)
                 , Css.displayFlex
                 , Css.flexDirection Css.row
+                , Css.justifyContent Css.center
                 , Css.alignItems Css.center
-                , Css.justifyContent Css.center
-                , backgroundColor intrepidColourPrimary2
-                , Css.border3 (px 5) Css.solid intrepidColourPrimary3
+                , Css.backgroundColor intrepidColourPrimary2
                 ]
             ]
-            [ Styled.h1
-                [ Html.Styled.Attributes.css
-                    [ Css.fontSize (px 34)
-                    , Css.alignItems Css.center
-                    , Css.justifyContent Css.center
+            [ Html.h1
+                [ css
+                    [ Css.fontFamily fantasy
+                    , Css.fontSize (px 50)
+                    , Css.fontWeight Css.bold
+                    , Css.textAlign Css.center
                     ]
                 ]
-                [ Styled.text "Welcome to Intrepid Shape" ]
+                [ Html.text "Intrepid Shape" ]
             ]
+        ]
 
-holyGrailMain_ : List (Styled.Html msg) -> List ( String, Route ) -> Html msg
-holyGrailMain_ articleContent navBarContent =
-    Styled.main_
-            [ Html.Styled.Attributes.css
+
+
+-- Simple title in the header that is all
+
+
+holyGrailMain_ : List (Html.Html msg) -> Html msg
+holyGrailMain_ articleContent =
+    Html.main_
+        [ css
+            [ Css.position Css.relative
+            , Css.displayFlex
+            , Css.flexDirection Css.row
+            , Css.justifyContent Css.center
+            , Css.backgroundColor intrepidColourPrimary1
+            , Css.backgroundImage (url "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.dreamstime.com%2Fstock-illustration-black-outline-flower-life-sacred-geometry-pattern-vector-contour-monochrome-hinduism-seamless-blue-background-image66344893&psig=AOvVaw0t-6hRSRi95Yinhy0uuI2e&ust=1676214680537000&source=images&cd=vfe&ved=0CA8QjRxqFwoTCLiY37bgjf0CFQAAAAAdAAAAABAK")
+            , Css.backgroundRepeat Css.repeat
+            ]
+        ]
+        [ Html.div
+            [ css
                 [ Css.position Css.relative
+                , Css.top <| Css.pct 0
+                , Css.zIndex <| Css.int 1
+                , Css.width <| Css.pct 7
+                , Css.paddingLeft <| Css.pct 3
+                , Css.textAlign Css.marginLeft
                 , Css.displayFlex
-                , Css.flexDirection Css.row
-                , Css.backgroundColor intrepidColourSecondary2_0
-                , Css.justifyContent Css.center
+                , Css.flexWrap Css.wrap
+                , Css.backgroundColor intrepidColourPrimary2
+                , Css.border3 (px 5) Css.solid intrepidColourPrimary3
+                , Css.borderTop (px 0)
+                , Css.backgroundImage (url "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.dreamstime.com%2Fstock-illustration-black-outline-flower-life-sacred-geometry-pattern-vector-contour-monochrome-hinduism-seamless-blue-background-image66344893&psig=AOvVaw0t-6hRSRi95Yinhy0uuI2e&ust=1676214680537000&source=images&cd=vfe&ved=0CA8QjRxqFwoTCLiY37bgjf0CFQAAAAAdAAAAABAK")
+                , Css.backgroundRepeat Css.repeat
                 ]
             ]
-            [ Styled.div
-                [ Html.Styled.Attributes.css
-                    [ Css.position Css.relative
-                    , Css.top <| Css.pct 0
-                    , Css.zIndex <| Css.int 1
-                    , Css.width <| Css.pct 7
-                    , Css.paddingLeft <| Css.pct 3
-                    , Css.textAlign Css.marginLeft
-                    , Css.displayFlex
-                    , Css.flexWrap Css.wrap
-                    , Css.backgroundColor intrepidColourPrimary2
-                    , Css.border3 (px 5) Css.solid intrepidColourPrimary3
-                    , Css.borderTop (px 0)
-                    ]
-                ]
-                [ Styled.nav
-                    [ Html.Styled.Attributes.css
-                        [ Css.flexWrap Css.wrap
-                        , Css.position Css.sticky
-                        , Css.top <| Css.pct 0
-                        , Css.zIndex <| Css.int 1
-                        ]
-                    ]
-                    [ mapNavBarContent navBarContent ]
-                ]
-            , mapArticleContent articleContent
-            , Styled.aside
-                [ Html.Styled.Attributes.css
+            [ Html.nav
+                [ css
                     [ Css.flexWrap Css.wrap
                     , Css.position Css.sticky
-                    , Css.top <| Css.px 0
+                    , Css.top <| Css.pct 0
                     , Css.zIndex <| Css.int 1
                     , Css.displayFlex
                     , Css.flexDirection Css.column
                     , Css.alignItems Css.center
-                    , Css.width <| Css.pct 7
-                    , Css.paddingLeft <| Css.pct 1.5
-                    , Css.paddingRight <| Css.pct 1.5
-                    , Css.backgroundColor intrepidColourPrimary2
-                    , Css.border3 (px 5) Css.solid intrepidColourPrimary3
-                    , Css.borderTop (px 0)
                     ]
                 ]
-                [ Styled.p [] [ Styled.text "Asid from all that, there is some text over here too!" ] ]
+                [ mapNavBarContent [ ( "Home", Gen.Route.Home_ ), ( "Journal", Gen.Route.Journal ), ( "Geometry", Gen.Route.Geometry ) ]
+                ]
             ]
-            
+        , mapArticleContent articleContent
+        , Html.aside
+            [ css
+                [ Css.flexWrap Css.wrap
+                , Css.position Css.sticky
+                , Css.top <| Css.px 0
+                , Css.zIndex <| Css.int 1
+                , Css.displayFlex
+                , Css.flexDirection Css.column
+                , Css.alignItems Css.center
+                , Css.width <| Css.pct 7
+                , Css.paddingLeft <| Css.pct 1.5
+                , Css.paddingRight <| Css.pct 1.5
+                , Css.backgroundColor intrepidColourPrimary2
+                , Css.border3 (px 5) Css.solid intrepidColourPrimary3
+                , Css.borderTop (px 0)
+                ]
+            ]
+            [ Html.div
+                [ css
+                    [ Css.flexWrap Css.wrap
+                    , Css.position Css.sticky
+                    , Css.top <| Css.pct 0
+                    , Css.zIndex <| Css.int 1
+                    , Css.fontSize (px 12)
+                    ]
+                ]
+                [ Html.p [] [ Html.text "Life is a journey, not a destination. Embrace the journey of self-discovery and find success through learning and self-improvement." ]
+                , Html.p [] [ Html.text "Mathematics is the language of the universe. Learn to speak it fluently and unlock the potential of your mind." ]
+                , Html.p [] [ Html.text "Eudaimonia is the path to a virtuous and fulfilled life. Harness the power of Stoicism to become the best version of yourself." ]
+                , Html.p [] [ Html.text "Programming is the key to unlocking new possibilities. Invest in yourself and become a master of the digital age." ]
+                , Html.p [] [ Html.text "Success is a journey, not a destination. Find your true purpose and use it to reach your highest potential." ]
+                , Html.p [] [ Html.text "Self-discipline is the foundation of success. Develop the habits that will lead you to a better life." ]
+                , Html.p [] [ Html.text "The mind is a powerful tool. Learn to use it to your advantage and unlock your true potential." ]
+                ]
+            ]
+        ]
+
+
 mapNavBarContent : List ( String, Route ) -> Html msg
 mapNavBarContent content =
     let
         contentList =
             List.map (\x -> x) content
     in
-    Styled.div
-        [ Html.Styled.Attributes.css
-            [ Css.position Css.sticky
+    Html.ul
+        [ css
+            [ -- make sticky
+              Css.position Css.sticky
             , Css.top <| Css.px 0
             , Css.zIndex <| Css.int 1
             , Css.displayFlex
             , Css.flexDirection Css.column
             , Css.alignItems Css.center
             , Css.justifyContent Css.center
+            , Css.listStyleType Css.none
+            , Css.padding <| Css.pct 0
+            , Css.paddingTop <| Css.px 10
+            , Css.marginLeft <| Css.pct -40
             ]
         ]
         (List.map (\( label, route ) -> viewLink label route) contentList)
+        
 
 
 viewLink : String -> Route -> Html msg
 viewLink label route =
-    Styled.a
-        [ Html.Styled.Attributes.href (Gen.Route.toHref route)
+    Html.a
+        [ css
+            [ Css.backgroundColor intrepidColourPrimary0
+            , Css.border (px 0)
+            , Css.borderRadius <| Css.px 4
+            , Css.padding <| Css.px 10
+            , Css.textDecoration Css.none
+            , Css.fontSize <| Css.pct 100
+            , Css.width <| Css.pct 80
+            , Css.height <| Css.pct 10
+            , Css.alignItems Css.center
+            , Css.justifyContent Css.center
+            , Css.marginBottom <| Css.px 10 
+            , Css.textAlign Css.center 
+            , border3 (px 5) Css.solid intrepidColourPrimary3
+            , Css.hover [ Css.backgroundColor intrepidColourPrimary3 ]
+            , Css.fontFamily Css.fantasy 
+            ]
+        , href (Gen.Route.toHref route)
         ]
-        [ Styled.p [] [ Styled.text label ] ]
+        [ Html.text label ]
 
 
 
@@ -194,32 +255,37 @@ viewLink label route =
 
 mapArticleContent : List (Html msg) -> Html msg
 mapArticleContent articleContent =
-    Styled.article
-        [ Html.Styled.Attributes.css
+    Html.article
+        [ css
             [ Css.width <| Css.pct 80
             , Css.displayFlex
             , Css.flexWrap Css.wrap
             , fontSize (px 20)
-            , Css.backgroundColor intrepidColourPrimary1
             , Css.padding <| Css.px 20
+            , Css.justifyContent Css.center
+            , Css.backgroundImage (url "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.dreamstime.com%2Fstock-illustration-black-outline-flower-life-sacred-geometry-pattern-vector-contour-monochrome-hinduism-seamless-blue-background-image66344893&psig=AOvVaw0t-6hRSRi95Yinhy0uuI2e&ust=1676214680537000&source=images&cd=vfe&ved=0CA8QjRxqFwoTCLiY37bgjf0CFQAAAAAdAAAAABAK")
+            , Css.backgroundRepeat Css.repeat
+            , Css.backgroundSize Css.contain
+            , Css.backgroundPosition Css.center
             ]
         ]
         articleContent
 
+
 holyGrailFooter : Html msg
 holyGrailFooter =
-    Styled.footer
-            [ Html.Styled.Attributes.css
-                [ Css.displayFlex
-                , Css.flexWrap Css.wrap
-                , Css.alignItems Css.center
-                , Css.justifyContent Css.center
-                , Css.fontSize <| Css.px 10
-                , backgroundColor intrepidColourSecondary2_1
-                , border3 (px 5) Css.solid intrepidColourSecondary2_2
-                ]
+    Html.footer
+        [ css
+            [ Css.displayFlex
+            , Css.flexWrap Css.wrap
+            , Css.alignItems Css.center
+            , Css.justifyContent Css.center
+            , Css.fontSize <| Css.px 10
+            , backgroundColor intrepidColourSecondary2_1
+            , border3 (px 5) Css.solid intrepidColourSecondary2_2
             ]
-            [ Styled.p [] [ Styled.text "© 2023 Intrepid Shape" ] ]
+        ]
+        [ Html.p [] [ Html.text "© 2023 Intrepid Shape" ] ]
 
 
 intrepidColourPrimary0 : Color

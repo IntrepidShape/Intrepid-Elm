@@ -5,16 +5,13 @@ import Gen.Route exposing (Route(..))
 import Css.Global
 import Html.Styled as Html exposing (Html,form)
 import Html.Styled.Attributes as Html exposing (css)
-import Html.Styled.Keyed
 import Page exposing (Page)
 import Pages.Home_ exposing (holyGrail)
 import Request exposing (Request)
 import View exposing (View)
-
-
-
-
-
+import Shared exposing (..)
+import Task
+import Html.Events exposing (onClick, onSubmi, )
 
 -- Journal
 -- A Goal journal
@@ -30,15 +27,15 @@ import View exposing (View)
 -- Twice a day the user will be prompted to input a journal entry
 -- Morning and evening
 -- types of journal entries
--- Planing and mindset
--- Gratitude
--- Restate the Long term goal
--- What is the goal?
--- What are you doing today to move towards your long term goal
--- What does it mean to you?
--- What is the value of this goal to you?
--- What is the value of this goal to others?
--- Short Todays goals
+-- 1. Planing and mindset
+-- 1.1 Gratitude
+-- 1.2 Restate the Long term goal
+-- 1.2.1 What is the goal?
+-- 1.2.2 What are you doing today to move towards your long term goal
+-- 1.2.3 What does it mean to you?
+-- 1.2.4 What is the value of this goal to you?
+-- 1.2.5 What is the value of this goal to others?
+-- 1.3 Short Todays goals
 -- What do I need to get done today?
 -- What are my top 3 priorities for today?
 -- Am I doing them in the order of the hardest first?
@@ -87,6 +84,16 @@ type alias Evening =
     }
 
 
+type Msg
+    = MorningSubmitted
+
+
+update : Msg -> Morning -> ( Morning, Cmd Msg )
+update msg model =
+    case msg of
+        MorningSubmitted ->
+            ( model, Cmd.none )
+
 view : View msg
 view =
     let
@@ -106,7 +113,6 @@ view =
                     , flexDirection column
                     , alignItems center
                     , justifyContent center
-                    , border3 (px 10) solid (hex "000000")
                     ]
                 ] 
                 [ Html.div
@@ -125,7 +131,7 @@ view =
                             , height (px 230)
                             ]
                         ]
-                        []
+                        [onSubmit ]
                     ]
                 , Html.div
                     [ css
@@ -252,17 +258,24 @@ view =
                         ]
                         []
                     ]
-                , Html.button
+                , Html.button -- on submit SaveDay
                     [ css
                         [ width (px 400)
-                        , height (px 100)
+                        , height (px 100) --take the data from the form inputs and give it to saveDay
+                        , onClick saveMorning 
+ 
                         ]
                     ]
-                    [ Html.text "Submit" ]
+                    [ Html.text "Submit"]
+                    
                 ]
             ]
             ]
     in
     { title = "Intrepid Shape"
-    , body = [ holyGrail articleContent [ ( "Home", Gen.Route.Home_ ), ( "Journal", Gen.Route.Journal ), ( "Geometry", Gen.Route.Geometry ) ] ]
+    , body = [ holyGrail articleContent ]
     }
+
+saveMorning : Morning -> Cmd Msg
+saveMorning morning =
+    Task.perform (\_ -> MorningSubmitted morning) (Task.succeed morning) --would this work?

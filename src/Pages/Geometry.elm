@@ -25,5 +25,5 @@ view =
             ]
     in
     { title = "Intrepid Shape"
-    , body = [ holyGrail articleContent [ ( "Home", Gen.Route.Home_ ), ( "Journal", Gen.Route.Journal ), ( "Geometry", Gen.Route.Geometry ) ] ]
+    , body = [ holyGrail articleContent ]
     }
