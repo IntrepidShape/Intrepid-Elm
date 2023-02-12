@@ -2,16 +2,17 @@ module Pages.Journal exposing (view)
 
 import Css exposing (..)
 import Gen.Route exposing (Route(..))
-import Css.Global
-import Html.Styled as Html exposing (Html,form)
+import Html.Styled as Html exposing (Html, form)
 import Html.Styled.Attributes as Html exposing (css)
+import Html.Styled.Events as Html exposing (onClick, onInput, onSubmit, preventDefaultOn)
 import Page exposing (Page)
 import Pages.Home_ exposing (holyGrail)
 import Request exposing (Request)
-import View exposing (View)
 import Shared exposing (..)
 import Task
-import Html.Events exposing (onClick, onSubmi, )
+import View exposing (View)
+import Gen.Msg exposing (Msg)
+
 
 -- Journal
 -- A Goal journal
@@ -61,8 +62,8 @@ type alias Day =
 type alias Morning =
     { gratitude : String
     , longTermGoal : String
-    , shortTermGoals : List String
-    , planForTheDay : List String
+    , shortTermGoals : String
+    , planForTheDay : String
     , lookingForward : String
     , rateFocus : Int
     , rateEnergy : Int
@@ -85,197 +86,287 @@ type alias Evening =
 
 
 type Msg
-    = MorningSubmitted
+    = Updategratitude String
+    | UpdateLongTermGoal String
+    | UpdateShortTermGoals String
+    | UpdatePlanForTheDay String
+    | UpdateLookingForward String
+    | UpdateRateFocus Int
+    | UpdateRateEnergy Int
+    | UpdateRateHappiness Int
+    | MorningSubmitted Morning
+    | NoOp
 
 
-update : Msg -> Morning -> ( Morning, Cmd Msg )
+initMorning : Morning
+initMorning =
+    { gratitude = ""
+    , longTermGoal = ""
+    , shortTermGoals = ""
+    , planForTheDay = ""
+    , lookingForward = ""
+    , rateFocus = 0
+    , rateEnergy = 0
+    , rateHappiness = 0
+    }
+
+update : Msg -> Morning -> Morning
 update msg model =
     case msg of
-        MorningSubmitted ->
-            ( model, Cmd.none )
+        Updategratitude val ->
+            { model | gratitude = val }
+
+        UpdateLongTermGoal val ->
+            { model | longTermGoal = val }
+
+        UpdateShortTermGoals val ->
+            { model | shortTermGoals = val }
+
+        UpdatePlanForTheDay val ->
+            { model | planForTheDay = val }
+
+        UpdateLookingForward val ->
+            { model | lookingForward = val }
+
+        UpdateRateFocus val ->
+            { model | rateFocus = val }
+
+        UpdateRateEnergy val ->
+            { model | rateEnergy = val }
+
+        UpdateRateHappiness val ->
+            { model | rateHappiness = val }
+
+        MorningSubmitted val ->
+            val
+        
+        NoOp ->
+            model
+
+
+
 
 view : View msg
 view =
     let
+        morning =
+            initMorning
         articleContent =
             [ Html.div
-                [ css
-                    [ displayFlex 
-                    , flexDirection column
-                    , alignItems center
-                    , justifyContent center
-                    ]
-                ]
-                [ Html.h1 [] [ Html.text "Journal" ]
-            , form
                 [ css
                     [ displayFlex
                     , flexDirection column
                     , alignItems center
                     , justifyContent center
                     ]
-                ] 
-                [ Html.div
-                    [ css
-                        [ displayFlex
-                        , flexDirection column
-                        , alignItems center
-                        , justifyContent center
-                        , padding (pct 5)
-                        ]
-                    ]
-                    [ Html.label [] [ Html.text "Gratitude" ]
-                    , Html.textarea
-                        [ css
-                            [ width (px 960)
-                            , height (px 230)
-                            ]
-                        ]
-                        [onSubmit ]
-                    ]
-                , Html.div
-                    [ css
-                        [ displayFlex
-                        , flexDirection column
-                        , alignItems center
-                        , justifyContent center
-                        ]
-                    ]
-                    [ Html.label [] [ Html.text "Long Term Goal" ]
-                    , Html.textarea
-                        [ css
-                            [ width (px 960)
-                            , height (px 230)
-                            ]
-                        ]
-                        []
-                    ]
-                , Html.div
-                    [ css
-                        [ displayFlex
-                        , flexDirection column
-                        , alignItems center
-                        , justifyContent center
-                        , padding (px 20)
-                        ]
-                    ]
-                    [ Html.label [] [ Html.text "Short Term Goals" ]
-                    , Html.textarea
-                        [ css
-                            [ width (px 960)
-                            , height (px 230)
-                            ]
-                        ]
-                        []
-                    ]
-                , Html.div
-                    [ css
-                        [ displayFlex
-                        , flexDirection column
-                        , alignItems center
-                        , justifyContent center
-                        , padding (px 20)
-                        ]
-                    ]
-                    [ Html.label [] [ Html.text "Plan for the day" ]
-                    , Html.textarea
-                        [ css
-                            [ width (px 960)
-                            , height (px 230)
-                            ]
-                        ]
-                        []
-                    ]
-                , Html.div
-                    [ css
-                        [ displayFlex
-                        , flexDirection column
-                        , alignItems center
-                        , justifyContent center
-                        , padding (px 20)
-                        ]
-                    ]
-                    [ Html.label [] [ Html.text "Looking forward to" ]
-                    , Html.textarea
-                        [ css
-                            [ width (px 960)
-                            , height (px 230)
-                            ]
-                        ]
-                        []
-                    ]
-                , Html.div
-                    [ css
-                        [ displayFlex
-                        , flexDirection column
-                        , alignItems center
-                        , justifyContent center
-                        , padding (px 20)
-                        ]
-                    ]
-                    [ Html.label [] [ Html.text "Rate Focus" ]
-                    , Html.input
-                        [ css
-                            [ width (px 960)
-                            , height (px 230)
-                            ]
-                        ]
-                        []
-                    ]
-                , Html.div
-                    [ css
-                        [ displayFlex
-                        , flexDirection column
-                        , alignItems center
-                        , justifyContent center
-                        , padding (px 20)
-                        ]
-                    ]
-                    [ Html.label [] [ Html.text "Rate Energy" ]
-                    , Html.input
-                        [ css
-                            [ width (px 960)
-                            , height (px 230)
-                            ]
-                        ]
-                        []
-                    ]
-                , Html.div
-                    [ css
-                        [ displayFlex
-                        , flexDirection column
-                        , alignItems center
-                        , justifyContent center
-                        , padding (px 20)
-                        ]
-                    ]
-                    [ Html.label [] [ Html.text "Rate Happiness" ]
-                    , Html.input
-                        [ css
-                            [ width (px 960)
-                            , height (px 230)
-                            ]
-                        ]
-                        []
-                    ]
-                , Html.button -- on submit SaveDay
-                    [ css
-                        [ width (px 400)
-                        , height (px 100) --take the data from the form inputs and give it to saveDay
-                        , onClick saveMorning 
- 
-                        ]
-                    ]
-                    [ Html.text "Submit"]
-                    
                 ]
-            ]
+                [ Html.h1 [] [ Html.text "Journal" ]
+                , form
+                    [ css
+                        [ displayFlex
+                        , flexDirection column
+                        , alignItems center
+                        , justifyContent center
+                        ]
+                    ]
+                    [ Html.div
+                        [ css
+                            [ displayFlex
+                            , flexDirection column
+                            , alignItems center
+                            , justifyContent center
+                            , padding (pct 5)
+                            ]
+                        ]
+                        [ Html.label [] [ Html.text "Gratitude" ]
+                        , Html.textarea
+                            [ css
+                                [ width (px 960)
+                                , height (px 230)
+                                ]
+                            , Html.type_ "text"
+                            , Html.value morning.gratitude
+                            , Html.onInput Updategratitude
+                            ]
+                            []
+                        ]
+                    , Html.div
+                        [ css
+                            [ displayFlex
+                            , flexDirection column
+                            , alignItems center
+                            , justifyContent center
+                            ]
+                        ]
+                        [ Html.label [] [ Html.text "Long Term Goal" ]
+                        , Html.textarea
+                            [ css
+                                [ width (px 960)
+                                , height (px 230)
+                                ]
+                            , Html.type_ "text"
+                            , Html.value morning.longTermGoal
+                            , Html.onInput UpdateLongTermGoal
+                            ]
+                            []
+                        ]
+                    , Html.div
+                        [ css
+                            [ displayFlex
+                            , flexDirection column
+                            , alignItems center
+                            , justifyContent center
+                            , padding (px 20)
+                            ]
+                        ]
+                        [ Html.label [] [ Html.text "Short Term Goals" ]
+                        , Html.textarea
+                            [ css
+                                [ width (px 960)
+                                , height (px 230)
+                                ]
+                            , Html.type_ "text"
+                            , Html.value morning.shortTermGoals
+                            , Html.onInput UpdateShortTermGoals
+                            ]
+                            []
+                        ]
+                    , Html.div
+                        [ css
+                            [ displayFlex
+                            , flexDirection column
+                            , alignItems center
+                            , justifyContent center
+                            , padding (px 20)
+                            ]
+                        ]
+                        [ Html.label [] [ Html.text "Plan for the day" ]
+                        , Html.textarea
+                            [ css
+                                [ width (px 960)
+                                , height (px 230)
+                                ]
+                            , Html.type_ "text"
+                            , Html.value morning.planForTheDay
+                            , Html.onInput UpdatePlanForTheDay
+                            ]
+                            []
+                        ]
+                    , Html.div
+                        [ css
+                            [ displayFlex
+                            , flexDirection column
+                            , alignItems center
+                            , justifyContent center
+                            , padding (px 20)
+                            ]
+                        ]
+                        [ Html.label [] [ Html.text "Looking forward to" ]
+                        , Html.textarea
+                            [ css
+                                [ width (px 960)
+                                , height (px 230)
+                                ]
+                            , Html.type_ "text"
+                            , Html.value morning.lookingForward
+                            , Html.onInput UpdateLookingForward
+                            ]
+                            []
+                        ]
+                    , Html.div
+                        [ css
+                            [ displayFlex
+                            , flexDirection column
+                            , alignItems center
+                            , justifyContent center
+                            , padding (px 20)
+                            ]
+                        ]
+                        [ Html.label [] [ Html.text "Rate Focus" ]
+                        , Html.input
+                            [ css
+                                [ width (px 960)
+                                , height (px 230)
+                                ]
+                            , Html.type_ "range"
+                            , Html.min "0"
+                            , Html.max "10"
+                            , Html.value (String.fromInt morning.rateFocus)
+                            , Html.onInput (toMsg String.toInt UpdateRateFocus)
+                            ]
+                            []
+        
+                        ]
+                    , Html.div
+                        [ css
+                            [ displayFlex
+                            , flexDirection column
+                            , alignItems center
+                            , justifyContent center
+                            , padding (px 20)
+                            ]
+                        ]
+                        [ Html.label [] [ Html.text "Rate Energy" ]
+                        , Html.input
+                            [ css
+                                [ width (px 960)
+                                , height (px 230)
+                                ]
+                            , Html.type_ "range"
+                            , Html.min "0"
+                            , Html.max "10"
+                            , Html.value (String.fromInt morning.rateEnergy)
+                            , Html.onInput ( toMsg String.toInt UpdateRateEnergy)
+                            ]
+                            []
+                        ]
+                    , Html.div
+                        [ css
+                            [ displayFlex
+                            , flexDirection column
+                            , alignItems center
+                            , justifyContent center
+                            , padding (px 20)
+                            ]
+                        ]
+                        [ Html.label [] [ Html.text "Rate Happiness" ]
+                        , Html.input
+                            [ css
+                                [ width (px 960)
+                                , height (px 230)
+                                ]
+                            , Html.type_ "range"
+                            , Html.min "0"
+                            , Html.max "10"
+                            , Html.value (String.fromInt morning.rateHappiness)
+                            , Html.onInput ( toMsg String.toInt UpdateRateHappiness)
+                            ]
+                            []
+                        ]
+                    , Html.button
+                        [ css
+                            [ width (px 400)
+                            , height (px 100) 
+                            ]
+                        ]
+                        [ Html.text "Submit" ]
+                    ]
+                ]
             ]
     in
     { title = "Intrepid Shape"
     , body = [ holyGrail articleContent ]
     }
 
+toMsg : (String -> Maybe a) -> (a -> Msg) -> String -> Msg
+toMsg toA toMsgFunc string =
+    case toA string of
+        Just a -> toMsgFunc a
+        Nothing -> NoOp
+
 saveMorning : Morning -> Cmd Msg
 saveMorning morning =
-    Task.perform (\_ -> MorningSubmitted morning) (Task.succeed morning) --would this work?
+    Task.perform (\_ -> MorningSubmitted morning) (Task.succeed morning)
+
+
+--would this work?
