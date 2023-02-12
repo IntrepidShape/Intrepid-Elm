@@ -2,11 +2,11 @@ module Pages.Geometry exposing (view)
 
 import Css exposing (..)
 import Gen.Route exposing (Route)
-import Html.Styled as Styled exposing (..)
-import Html.Styled.Attributes exposing (css, href, src)
+import Html.Styled as Styled exposing ( Html, div, text )
+import Html.Styled.Attributes as Styled exposing (css)
 import Pages.Home_ exposing (holyGrail)
-import Svg.Styled as Svg exposing (circle, path, svg, text)
-import Svg.Styled.Attributes as Svg exposing (cx, cy, d, fill, r, stroke, strokeWidth, x1, x2, y1, y2)
+import Svg.Styled as Svg exposing (..)
+import Svg.Styled.Attributes as Svg  exposing ( viewBox, cx, cy, r, stroke, strokeWidth, fill )
 import View exposing (View)
 
 
@@ -14,7 +14,7 @@ view : View msg
 view =
     let
         articleContent =
-            [ div
+            [ Styled.div
                 [ css [ width (px 100), height (px 100), backgroundColor (hex "FF0000") ]
                 ]
                 [ Svg.svg [ Svg.css [ width (px 100), height (px 100) ], Svg.viewBox "0 0 100 100" ]
@@ -25,5 +25,5 @@ view =
             ]
     in
     { title = "Intrepid Shape"
-    , body = [ holyGrail articleContent [ ( "Home", Gen.Route.Home_ ), ( "OtherPage", Gen.Route.OtherPage ), ( "Geometry", Gen.Route.Geometry ) ] ]
+    , body = [ holyGrail articleContent [ ( "Home", Gen.Route.Home_ ), ( "Journal", Gen.Route.Journal ), ( "Geometry", Gen.Route.Geometry ) ] ]
     }
