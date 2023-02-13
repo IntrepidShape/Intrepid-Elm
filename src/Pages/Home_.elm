@@ -1,16 +1,13 @@
 module Pages.Home_ exposing (holyGrail, view)
 
 import Css exposing (..)
-import Css.Global
 import Css.Transitions exposing (background)
 import Gen.Route exposing (Route(..))
 import Html.Styled as Html exposing (Html, iframe)
 import Html.Styled.Attributes as Html exposing (css, href, src)
 import Html.Styled.Events as Html exposing (onClick)
-import Page exposing (Page)
 import Request exposing (Request)
 import View exposing (View)
-
 
 view : View msg
 view =
@@ -39,16 +36,13 @@ view =
             , Html.p [] [ Html.text "The mind is a powerful tool. Learn to use it to your advantage and unlock your true potential." ]
             ]
     in
-    { title = "Intrepid Shape"
-    , body = [ holyGrail articleContent ]
+    { title = "Intrepid Shape"  -- The title of the page
+    , body =
+        [ holyGrail articleContent
+        ]
     }
 
-
-
--- The whole article area should alays be at least 100% of the viewport height
-
-
-holyGrail : List (Html.Html msg) -> Html msg
+holyGrail : List (Html msg) -> Html msg
 holyGrail articleContent =
     Html.div
         [ css
