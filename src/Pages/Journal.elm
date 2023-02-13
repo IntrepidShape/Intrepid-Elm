@@ -1,14 +1,14 @@
-module Pages.Journal exposing (view)
+module Pages.Journal exposing (Model, Msg, page)
 
 import Css exposing (..)
-import Gen.Route exposing (Route(..))
+import Gen.Route exposing (Route)
 import Html.Styled as Html exposing (Html, form)
 import Html.Styled.Attributes as Html exposing (css)
 import Html.Styled.Events as Html exposing (onClick, onInput, onSubmit, preventDefaultOn)
-import Page exposing (Page)
+import Page exposing (Page, With)
 import Pages.Home_ exposing (holyGrail)
 import Request exposing (Request)
-import Shared exposing (..)
+import Shared
 import Task
 import View exposing (View)
 
@@ -53,12 +53,23 @@ import View exposing (View)
 
 
 type alias Day =
-    { morning : Morning
+    { morning : Model
     , evening : Evening
     }
 
 
-type alias Morning =
+-- type alias Morning =
+--     { gratitude : String
+--     , longTermGoal : String
+--     , shortTermGoals : String
+--     , planForTheDay : String
+--     , lookingForward : String
+--     , rateFocus : Int
+--     , rateEnergy : Int
+--     , rateHappiness : Int
+--     }
+
+type alias Model =
     { gratitude : String
     , longTermGoal : String
     , shortTermGoals : String
@@ -68,7 +79,6 @@ type alias Morning =
     , rateEnergy : Int
     , rateHappiness : Int
     }
-
 
 type alias Evening =
     { lifeExperience : String
@@ -93,12 +103,12 @@ type Msg
     | UpdateRateFocus Int
     | UpdateRateEnergy Int
     | UpdateRateHappiness Int
-    | MorningSubmitted Morning
+    | MorningSubmitted Model
     | NoOp
 
 
-initMorning : Morning
-initMorning =
+init : Model
+init =
     { gratitude = ""
     , longTermGoal = ""
     , shortTermGoals = ""
@@ -109,7 +119,7 @@ initMorning =
     , rateHappiness = 0
     }
 
-update : Msg -> Morning -> Morning
+update : Msg -> Model -> Model
 update msg model =
     case msg of
         Updategratitude val ->
@@ -145,11 +155,18 @@ update msg model =
 
 
 
-view : View msg
-view =
+page : Shared.Model -> Request -> Page.With Model Msg
+page shared req =
+    Page.sandbox
+        { init = init
+        , update = update
+        , view = view
+        }
+
+
+view : Model -> View Msg
+view morning =
     let
-        morning =
-            initMorning
         articleContent =
             [ Html.div
                 [ css
@@ -363,7 +380,9 @@ toMsg toA toMsgFunc string =
         Just a -> toMsgFunc a
         Nothing -> NoOp
 
-saveMorning : Morning -> Cmd Msg
+saveMorning : Model -> Cmd Msg
 saveMorning morning =
     Task.perform (\_ -> MorningSubmitted morning) (Task.succeed morning)
+
+
 
