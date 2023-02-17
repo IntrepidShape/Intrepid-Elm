@@ -8,7 +8,7 @@ import Html.Styled.Events as Html exposing (onClick, onInput, onSubmit, preventD
 import Page exposing (Page, With)
 import Pages.Home_ exposing (holyGrail)
 import Request exposing (Request)
-import Shared
+import Shared as Shared exposing (Model)
 import Task
 import View exposing (View)
 
@@ -167,6 +167,7 @@ page shared req =
 view : Model -> View Msg
 view morning =
     let
+        articleContent : List (Html Msg)
         articleContent =
             [ Html.div
                 [ css
@@ -200,7 +201,6 @@ view morning =
                                 [ width (px 960)
                                 , height (px 230)
                                 ]
-                            , Html.type_ "text"
                             , Html.value morning.gratitude
                             , Html.onInput Updategratitude
                             ]
@@ -220,7 +220,6 @@ view morning =
                                 [ width (px 960)
                                 , height (px 230)
                                 ]
-                            , Html.type_ "text"
                             , Html.value morning.longTermGoal
                             , Html.onInput UpdateLongTermGoal
                             ]
@@ -241,7 +240,6 @@ view morning =
                                 [ width (px 960)
                                 , height (px 230)
                                 ]
-                            , Html.type_ "text"
                             , Html.value morning.shortTermGoals
                             , Html.onInput UpdateShortTermGoals
                             ]
@@ -262,7 +260,6 @@ view morning =
                                 [ width (px 960)
                                 , height (px 230)
                                 ]
-                            , Html.type_ "text"
                             , Html.value morning.planForTheDay
                             , Html.onInput UpdatePlanForTheDay
                             ]
@@ -283,7 +280,6 @@ view morning =
                                 [ width (px 960)
                                 , height (px 230)
                                 ]
-                            , Html.type_ "text"
                             , Html.value morning.lookingForward
                             , Html.onInput UpdateLookingForward
                             ]
@@ -299,6 +295,16 @@ view morning =
                             ]
                         ]
                         [ Html.label [] [ Html.text "Rate Focus" ]
+                        , Html.div
+                            [ css
+                                [ displayFlex
+                                , flexDirection column
+                                , alignItems center
+                                , justifyContent center
+                                , padding (px 5)
+                                ]   
+                            ]
+                            [ Html.text (String.fromInt morning.rateFocus) ]
                         , Html.input
                             [ css
                                 [ width (px 960)
@@ -323,6 +329,16 @@ view morning =
                             ]
                         ]
                         [ Html.label [] [ Html.text "Rate Energy" ]
+                        , Html.div
+                            [ css
+                                [ displayFlex
+                                , flexDirection column
+                                , alignItems center
+                                , justifyContent center
+                                , padding (px 5)
+                                ]   
+                            ]
+                            [ Html.text (String.fromInt morning.rateEnergy) ]
                         , Html.input
                             [ css
                                 [ width (px 960)
@@ -346,6 +362,16 @@ view morning =
                             ]
                         ]
                         [ Html.label [] [ Html.text "Rate Happiness" ]
+                        , Html.div
+                            [ css
+                                [ displayFlex
+                                , flexDirection column
+                                , alignItems center
+                                , justifyContent center
+                                , padding (px 5)
+                                ]   
+                            ]
+                            [ Html.text (String.fromInt morning.rateHappiness) ]
                         , Html.input
                             [ css
                                 [ width (px 960)

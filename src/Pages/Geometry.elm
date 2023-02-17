@@ -1,12 +1,11 @@
 module Pages.Geometry exposing (view)
 
 import Css exposing (..)
-import Gen.Route exposing (Route)
-import Html.Styled as Styled exposing ( Html, div, text )
+import Html.Styled as Styled
 import Html.Styled.Attributes as Styled exposing (css)
 import Pages.Home_ exposing (holyGrail)
 import Svg.Styled as Svg exposing (..)
-import Svg.Styled.Attributes as Svg  exposing ( viewBox, cx, cy, r, stroke, strokeWidth, fill )
+import Svg.Styled.Attributes as Svg
 import View exposing (View)
 
 
