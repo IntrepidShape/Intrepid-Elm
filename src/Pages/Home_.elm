@@ -150,7 +150,7 @@ holyGrailMain_ articleContent =
                     , Css.alignItems Css.center
                     ]
                 ]
-                [ mapNavBarContent [ ( "Home", Gen.Route.Home_ ), ( "Journal", Gen.Route.Journal ), ( "Geometry", Gen.Route.Geometry ) ]
+                [ mapNavBarContent [ ( "Home", Gen.Route.Home_ ), ( "Morning", Gen.Route.Morning ), ( "Geometry", Gen.Route.Geometry ), ( "Calendar", Gen.Route.Calendar ) ]
                 ]
             ]
         , mapArticleContent articleContent

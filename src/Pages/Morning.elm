@@ -1,16 +1,19 @@
-module Pages.Journal exposing (Model, Msg, page)
+module Pages.Morning exposing (Model, Msg, page)
 
 import Css exposing (..)
+import Date exposing (Date, Interval(..), Unit(..))
 import Gen.Route exposing (Route)
 import Html.Styled as Html exposing (Html, form)
 import Html.Styled.Attributes as Html exposing (css)
-import Html.Styled.Events as Html exposing (onClick, onInput, onSubmit, preventDefaultOn)
+import Html.Styled.Events as Html exposing (onClick, onInput, onSubmit)
 import Page exposing (Page, With)
 import Pages.Home_ exposing (holyGrail)
 import Request exposing (Request)
 import Shared as Shared exposing (Model)
 import Task
+import Time exposing (Month(..))
 import View exposing (View)
+
 
 
 -- Journal
@@ -27,35 +30,37 @@ import View exposing (View)
 -- Twice a day the user will be prompted to input a journal entry
 -- Morning and evening
 -- types of journal entries
--- 1. Planing and mindset
--- 1.1 Gratitude
--- 1.2 Restate the Long term goal
--- 1.2.1 What is the goal?
--- 1.2.2 What are you doing today to move towards your long term goal
--- 1.2.3 What does it mean to you?
--- 1.2.4 What is the value of this goal to you?
--- 1.2.5 What is the value of this goal to others?
--- 1.3 Short Todays goals
--- What do I need to get done today?
--- What are my top 3 priorities for today?
--- Am I doing them in the order of the hardest first?
+-- 
+-- Planing and mindset
+---- Gratitude
+---- Restate the Long term goal
+------ What is the goal?
+------ What are you doing today to move towards your long term goal
+------ What does it mean to you?
+------ What is the value of this goal to you?
+------ What is the value of this goal to others?
+---- Short Todays goals
+------ What do I need to get done today?
+------ What are my top 3 priorities for today?
+------ Am I doing them in the order of the hardest first?
 -- Reflection
--- Top life experience of the day.
--- Things that could have been improved
--- How I improved them, or how I will improve them tomorrow
--- Rate the day on a scale of 1-10
--- Rate the amount of focus I embodied on a scale of 1-10
--- Rate the amount of energy I embodied on a scale of 1-10
--- Rate the amount of happiness I embodied on a scale of 1-10
--- Did I accomplish my goals for the day
--- What did I learn today
--- Final free form journal entry
+---- Top life experience of the day.
+---- Things that could have been improved
+---- How I improved them, or how I will improve them tomorrow
+---- Rate the day on a scale of 1-10
+---- Rate the amount of focus I embodied on a scale of 1-10
+---- Rate the amount of energy I embodied on a scale of 1-10
+---- Rate the amount of happiness I embodied on a scale of 1-10
+---- Did I accomplish my goals for the day
+---- What did I learn today
+---- Final free form journal entry
 
 
 type alias Day =
     { morning : Model
     , evening : Evening
     }
+
 
 
 -- type alias Morning =
@@ -68,9 +73,12 @@ type alias Day =
 --     , rateEnergy : Int
 --     , rateHappiness : Int
 --     }
+--The location of this comment doesnt matter, what I'm trying to do is change calander.elm and import the functionality into this file
+
 
 type alias Model =
-    { gratitude : String
+    { date : Date
+    , gratitude : String
     , longTermGoal : String
     , shortTermGoals : String
     , planForTheDay : String
@@ -79,6 +87,7 @@ type alias Model =
     , rateEnergy : Int
     , rateHappiness : Int
     }
+
 
 type alias Evening =
     { lifeExperience : String
@@ -104,63 +113,72 @@ type Msg
     | UpdateRateEnergy Int
     | UpdateRateHappiness Int
     | MorningSubmitted Model
+    | ReceiveDate Date
     | NoOp
 
 
-init : Model
+init : ( Model, Cmd Msg )
 init =
-    { gratitude = ""
-    , longTermGoal = ""
-    , shortTermGoals = ""
-    , planForTheDay = ""
-    , lookingForward = ""
-    , rateFocus = 0
-    , rateEnergy = 0
-    , rateHappiness = 0
-    }
+    ( { date = Date.fromCalendarDate 2023 Jan 1
+      , gratitude = ""
+      , longTermGoal = ""
+      , shortTermGoals = ""
+      , planForTheDay = ""
+      , lookingForward = ""
+      , rateFocus = 0
+      , rateEnergy = 0
+      , rateHappiness = 0
+      }
+    , Task.perform ReceiveDate Date.today
+    )
 
-update : Msg -> Model -> Model
+
+
+
+update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         Updategratitude val ->
-            { model | gratitude = val }
+            ( { model | gratitude = val }, Cmd.none )
 
         UpdateLongTermGoal val ->
-            { model | longTermGoal = val }
+            ( { model | longTermGoal = val }, Cmd.none )
 
         UpdateShortTermGoals val ->
-            { model | shortTermGoals = val }
+            ( { model | shortTermGoals = val }, Cmd.none )
 
         UpdatePlanForTheDay val ->
-            { model | planForTheDay = val }
+            ( { model | planForTheDay = val }, Cmd.none )
 
         UpdateLookingForward val ->
-            { model | lookingForward = val }
+            ( { model | lookingForward = val }, Cmd.none )
 
         UpdateRateFocus val ->
-            { model | rateFocus = val }
+            ( { model | rateFocus = val }, Cmd.none )
 
         UpdateRateEnergy val ->
-            { model | rateEnergy = val }
+            ( { model | rateEnergy = val }, Cmd.none )
 
         UpdateRateHappiness val ->
-            { model | rateHappiness = val }
+            ( { model | rateHappiness = val }, Cmd.none )
 
         MorningSubmitted val ->
-            val
-        
+            ( val, Cmd.none )
+
+        ReceiveDate val ->
+            ( { model | date = val }, Cmd.none )
+
         NoOp ->
-            model
-
-
+            ( model, Cmd.none )
 
 
 page : Shared.Model -> Request -> Page.With Model Msg
 page shared req =
-    Page.sandbox
+    Page.element
         { init = init
         , update = update
         , view = view
+        , subscriptions = \_ -> Sub.none
         }
 
 
@@ -177,7 +195,9 @@ view morning =
                     , justifyContent center
                     ]
                 ]
-                [ Html.h1 [] [ Html.text "Journal" ]
+                [ Html.h1 []
+                    [ Html.text "Morning"
+                    ]
                 , form
                     [ css
                         [ displayFlex
@@ -186,7 +206,8 @@ view morning =
                         , justifyContent center
                         ]
                     ]
-                    [ Html.div
+                    [ Html.text (morning.date |> Date.format "EEEE, d MMMM y")
+                    , Html.div
                         [ css
                             [ displayFlex
                             , flexDirection column
@@ -302,7 +323,7 @@ view morning =
                                 , alignItems center
                                 , justifyContent center
                                 , padding (px 5)
-                                ]   
+                                ]
                             ]
                             [ Html.text (String.fromInt morning.rateFocus) ]
                         , Html.input
@@ -317,7 +338,6 @@ view morning =
                             , Html.onInput (toMsg String.toInt UpdateRateFocus)
                             ]
                             []
-        
                         ]
                     , Html.div
                         [ css
@@ -336,7 +356,7 @@ view morning =
                                 , alignItems center
                                 , justifyContent center
                                 , padding (px 5)
-                                ]   
+                                ]
                             ]
                             [ Html.text (String.fromInt morning.rateEnergy) ]
                         , Html.input
@@ -348,7 +368,7 @@ view morning =
                             , Html.min "0"
                             , Html.max "10"
                             , Html.value (String.fromInt morning.rateEnergy)
-                            , Html.onInput ( toMsg String.toInt UpdateRateEnergy)
+                            , Html.onInput (toMsg String.toInt UpdateRateEnergy)
                             ]
                             []
                         ]
@@ -369,7 +389,7 @@ view morning =
                                 , alignItems center
                                 , justifyContent center
                                 , padding (px 5)
-                                ]   
+                                ]
                             ]
                             [ Html.text (String.fromInt morning.rateHappiness) ]
                         , Html.input
@@ -381,14 +401,14 @@ view morning =
                             , Html.min "0"
                             , Html.max "10"
                             , Html.value (String.fromInt morning.rateHappiness)
-                            , Html.onInput ( toMsg String.toInt UpdateRateHappiness)
+                            , Html.onInput (toMsg String.toInt UpdateRateHappiness)
                             ]
                             []
                         ]
                     , Html.button
                         [ css
                             [ width (px 400)
-                            , height (px 100) 
+                            , height (px 100)
                             ]
                         ]
                         [ Html.text "Submit" ]
@@ -400,11 +420,16 @@ view morning =
     , body = [ holyGrail articleContent ]
     }
 
+
 toMsg : (String -> Maybe a) -> (a -> Msg) -> String -> Msg
 toMsg toA toMsgFunc string =
     case toA string of
-        Just a -> toMsgFunc a
-        Nothing -> NoOp
+        Just a ->
+            toMsgFunc a
+
+        Nothing ->
+            NoOp
+
 
 saveMorning : Model -> Cmd Msg
 saveMorning morning =
@@ -412,3 +437,4 @@ saveMorning morning =
 
 
 
+-- End of file
