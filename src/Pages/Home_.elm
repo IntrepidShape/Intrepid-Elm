@@ -1,12 +1,10 @@
 module Pages.Home_ exposing (holyGrail, view)
 
 import Css exposing (..)
-import Css.Transitions exposing (background)
 import Gen.Route exposing (Route(..))
-import Html.Styled as Html exposing (Html, iframe)
-import Html.Styled.Attributes as Html exposing (css, href, src)
-import Html.Styled.Events as Html exposing (onClick)
-import Request exposing (Request)
+import Html.Styled as Html exposing (Html)
+import Html.Styled.Attributes as Html exposing (css, href)
+import Html.Styled.Events as Html
 import View exposing (View)
 
 view : View msg
@@ -14,20 +12,6 @@ view =
     let
         articleContent =
             [ Html.p [] [ Html.text "Life is a journey, not a destination. Embrace the journey of self-discovery and find success through learning and self-improvement." ]
-            , Html.p [] [ Html.text "Mathematics is the language of the universe. Learn to speak it fluently and unlock the potential of your mind." ]
-            , Html.p [] [ Html.text "Eudaimonia is the path to a virtuous and fulfilled life. Harness the power of Stoicism to become the best version of yourself." ]
-            , Html.p [] [ Html.text "Programming is the key to unlocking new possibilities. Invest in yourself and become a master of the digital age." ]
-            , Html.p [] [ Html.text "Success is a journey, not a destination. Find your true purpose and use it to reach your highest potential." ]
-            , Html.p [] [ Html.text "Self-discipline is the foundation of success. Develop the habits that will lead you to a better life." ]
-            , Html.p [] [ Html.text "The mind is a powerful tool. Learn to use it to your advantage and unlock your true potential." ]
-            , Html.p [] [ Html.text "Life is a journey, not a destination. Embrace the journey of self-discovery and find success through learning and self-improvement." ]
-            , Html.p [] [ Html.text "Mathematics is the language of the universe. Learn to speak it fluently and unlock the potential of your mind." ]
-            , Html.p [] [ Html.text "Eudaimonia is the path to a virtuous and fulfilled life. Harness the power of Stoicism to become the best version of yourself." ]
-            , Html.p [] [ Html.text "Programming is the key to unlocking new possibilities. Invest in yourself and become a master of the digital age." ]
-            , Html.p [] [ Html.text "Success is a journey, not a destination. Find your true purpose and use it to reach your highest potential." ]
-            , Html.p [] [ Html.text "Self-discipline is the foundation of success. Develop the habits that will lead you to a better life." ]
-            , Html.p [] [ Html.text "The mind is a powerful tool. Learn to use it to your advantage and unlock your true potential." ]
-            , Html.p [] [ Html.text "Life is a journey, not a destination. Embrace the journey of self-discovery and find success through learning and self-improvement." ]
             , Html.p [] [ Html.text "Mathematics is the language of the universe. Learn to speak it fluently and unlock the potential of your mind." ]
             , Html.p [] [ Html.text "Eudaimonia is the path to a virtuous and fulfilled life. Harness the power of Stoicism to become the best version of yourself." ]
             , Html.p [] [ Html.text "Programming is the key to unlocking new possibilities. Invest in yourself and become a master of the digital age." ]
@@ -71,7 +55,6 @@ holyGrailHeader =
             , Css.height (px 100)
             , Css.border3 (px 5) Css.solid intrepidColourPrimary3
             , Css.backgroundColor intrepidColourPrimary1
-            , Css.backgroundImage (url "public/Images/SVG/Infiniteseedoflife.webp")
             , Css.backgroundRepeat Css.repeat
             , Css.backgroundSize Css.cover
             , Css.backgroundPosition Css.center -- the background image is not displaying??
@@ -118,7 +101,6 @@ holyGrailMain_ articleContent =
             , Css.flexDirection Css.row
             , Css.justifyContent Css.center
             , Css.backgroundColor intrepidColourPrimary1
-            , Css.backgroundImage (url "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.dreamstime.com%2Fstock-illustration-black-outline-flower-life-sacred-geometry-pattern-vector-contour-monochrome-hinduism-seamless-blue-background-image66344893&psig=AOvVaw0t-6hRSRi95Yinhy0uuI2e&ust=1676214680537000&source=images&cd=vfe&ved=0CA8QjRxqFwoTCLiY37bgjf0CFQAAAAAdAAAAABAK")
             , Css.backgroundRepeat Css.repeat
             ]
         ]
@@ -135,7 +117,6 @@ holyGrailMain_ articleContent =
                 , Css.backgroundColor intrepidColourPrimary2
                 , Css.border3 (px 5) Css.solid intrepidColourPrimary3
                 , Css.borderTop (px 0)
-                , Css.backgroundImage (url "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.dreamstime.com%2Fstock-illustration-black-outline-flower-life-sacred-geometry-pattern-vector-contour-monochrome-hinduism-seamless-blue-background-image66344893&psig=AOvVaw0t-6hRSRi95Yinhy0uuI2e&ust=1676214680537000&source=images&cd=vfe&ved=0CA8QjRxqFwoTCLiY37bgjf0CFQAAAAAdAAAAABAK")
                 , Css.backgroundRepeat Css.repeat
                 ]
             ]
@@ -200,8 +181,7 @@ mapNavBarContent content =
     in
     Html.ul
         [ css
-            [ -- make sticky
-              Css.position Css.sticky
+            [ Css.position Css.sticky
             , Css.top <| Css.px 0
             , Css.zIndex <| Css.int 1
             , Css.displayFlex
@@ -355,3 +335,5 @@ intrepidColourSecondary2_3 =
 intrepidColourSecondary2_4 : Color
 intrepidColourSecondary2_4 =
     hex "#711F9B"
+
+

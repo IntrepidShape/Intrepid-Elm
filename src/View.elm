@@ -2,7 +2,7 @@ module View exposing (View, map, none, placeholder, toBrowserDocument)
 
 import Html.Styled
 import Browser
-import Html.Styled as Html exposing (Html, fromUnstyled, toUnstyled)
+import Html.Styled as Html exposing (Html, toUnstyled)
 
 type alias View msg =
     { title : String

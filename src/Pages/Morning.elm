@@ -2,11 +2,13 @@ module Pages.Morning exposing (Model, Msg, page)
 
 import Css exposing (..)
 import Date exposing (Date, Interval(..), Unit(..))
-import Gen.Route exposing (Route)
+import File.Download as Download
+import Html.Events
 import Html.Styled as Html exposing (Html, form)
 import Html.Styled.Attributes as Html exposing (css)
-import Html.Styled.Events as Html exposing (onClick, onInput, onSubmit)
-import Page exposing (Page, With)
+import Html.Styled.Events as Html exposing (onSubmit)
+import Json.Encode as Encode
+import Page
 import Pages.Home_ exposing (holyGrail)
 import Request exposing (Request)
 import Shared as Shared exposing (Model)
@@ -30,7 +32,7 @@ import View exposing (View)
 -- Twice a day the user will be prompted to input a journal entry
 -- Morning and evening
 -- types of journal entries
--- 
+--
 -- Planing and mindset
 ---- Gratitude
 ---- Restate the Long term goal
@@ -54,15 +56,6 @@ import View exposing (View)
 ---- Did I accomplish my goals for the day
 ---- What did I learn today
 ---- Final free form journal entry
-
-
-type alias Day =
-    { morning : Model
-    , evening : Evening
-    }
-
-
-
 -- type alias Morning =
 --     { gratitude : String
 --     , longTermGoal : String
@@ -73,7 +66,7 @@ type alias Day =
 --     , rateEnergy : Int
 --     , rateHappiness : Int
 --     }
---The location of this comment doesnt matter, what I'm trying to do is change calander.elm and import the functionality into this file
+-- The location of this comment doesnt matter, what I'm trying to do is change calander.elm and import the functionality into this file
 
 
 type alias Model =
@@ -89,18 +82,19 @@ type alias Model =
     }
 
 
-type alias Evening =
-    { lifeExperience : String
-    , improvements : String
-    , improvementsImprovements : String
-    , rateDay : Int
-    , rateFocus : Int
-    , rateEnergy : Int
-    , rateHappiness : Int
-    , goalsAccomplished : Bool
-    , learnings : String
-    , freeForm : String
-    }
+
+-- type alias Evening =
+--     { lifeExperience : String
+--     , improvements : String
+--     , improvementsImprovements : String
+--     , rateDay : Int
+--     , rateFocus : Int
+--     , rateEnergy : Int
+--     , rateHappiness : Int
+--     , goalsAccomplished : Bool
+--     , learnings : String
+--     , freeForm : String
+--     }
 
 
 type Msg
@@ -133,8 +127,6 @@ init =
     )
 
 
-
-
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
@@ -162,8 +154,10 @@ update msg model =
         UpdateRateHappiness val ->
             ( { model | rateHappiness = val }, Cmd.none )
 
-        MorningSubmitted val ->
-            ( val, Cmd.none )
+        MorningSubmitted val -> -- download the morning to the local computer in json format using downloadMorning function
+            ( model , downloadMorning val )
+            
+            
 
         ReceiveDate val ->
             ( { model | date = val }, Cmd.none )
@@ -173,7 +167,7 @@ update msg model =
 
 
 page : Shared.Model -> Request -> Page.With Model Msg
-page shared req =
+page _ _ =
     Page.element
         { init = init
         , update = update
@@ -405,13 +399,17 @@ view morning =
                             ]
                             []
                         ]
-                    , Html.button
+                    , Html.button -- on click Morning submitted
                         [ css
-                            [ width (px 400)
-                            , height (px 100)
+                            [ displayFlex
+                            , flexDirection column
+                            , alignItems center
+                            , justifyContent center
+                            , padding (px 20)
                             ]
+                        , Html.onClick (MorningSubmitted morning)
                         ]
-                        [ Html.text "Submit" ]
+                        [ Html.text "Submit Morning" ]
                     ]
                 ]
             ]
@@ -431,9 +429,36 @@ toMsg toA toMsgFunc string =
             NoOp
 
 
-saveMorning : Model -> Cmd Msg
-saveMorning morning =
-    Task.perform (\_ -> MorningSubmitted morning) (Task.succeed morning)
+encodeMorning : Model -> Encode.Value
+encodeMorning morning =
+    Encode.object
+        [ ( "date", Encode.string (Date.format "dd-MM-yyy" morning.date) )
+        , ( "gratitude", Encode.string morning.gratitude )
+        , ( "longTermGoal", Encode.string morning.longTermGoal )
+        , ( "shortTermGoals", Encode.string morning.shortTermGoals )
+        , ( "planForTheDay", Encode.string morning.planForTheDay )
+        , ( "lookingForward", Encode.string morning.lookingForward )
+        , ( "rateFocus", Encode.int morning.rateFocus )
+        , ( "rateEnergy", Encode.int morning.rateEnergy )
+        , ( "rateHappiness", Encode.int morning.rateHappiness )
+        ]
+
+
+prettyMorningJson : Model -> String
+prettyMorningJson morning =
+    Encode.encode 4 (encodeMorning morning)
+
+
+downloadMorning : Model -> Cmd Msg
+downloadMorning morning =
+    let
+        filename =
+            "morning-" ++ Date.format "dd-MM-yyy" morning.date ++ ".json"
+
+        content =
+            prettyMorningJson morning
+    in
+    Download.string filename "application/json" content
 
 
 
